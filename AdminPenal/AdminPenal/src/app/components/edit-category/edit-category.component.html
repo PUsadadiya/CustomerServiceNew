@@ -1,0 +1,18 @@
+<div class="container">
+  <h2 class="text-center">Update Category</h2>
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="editcategory">
+      <div class="form-group">
+        <label for="sid">SId</label>
+        <input type="number" formControlName="sid" class="form-control" id="sid">
+        <label for="image">Image</label>
+        <input type="text" class="form-control" formControlName="image" id="image">
+        <label for="category">Category</label>
+        <input type="text" class="form-control" formControlName="category" id="category">
+      </div>
+    </form>
+    <div>
+      <button class="btn btn-success" id="submit" type="submit" (click)="UpdateCategory()">Update</button>
+    </div>
+  </div>
+</div>

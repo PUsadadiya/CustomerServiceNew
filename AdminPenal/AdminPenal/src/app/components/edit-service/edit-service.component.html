@@ -1,0 +1,19 @@
+<div class="container">
+  <h2 class="text-center">Update Service</h2>
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="editservices">
+      <div class="form-group">
+        <!-- <label for="id">Id</label>
+        <input type="number" formControlName="id" class="form-control" id="id"> -->
+        <label for="image">Image</label>
+        <input type="text" formControlName="image" class="form-control" id="image">
+        <label for="service">Service</label>
+        <input type="text" formControlName="service" class="form-control" id="service">
+      </div>
+    </form>
+
+    <div>
+      <button class="btn btn-success" id="submit" type="submit" (click)="UpdateService()">Update</button>
+    </div>
+  </div>
+</div>

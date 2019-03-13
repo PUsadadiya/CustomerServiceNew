@@ -1,0 +1,26 @@
+<div class="col-md-8 offset-md-2">
+  <h2 class="text-center"> Service Details</h2>
+  <button  class="btn btn-outline-danger" (click)="AddService()"> Add Service</button>
+  <div>
+  <table class="table table-bordered" >
+    <thead>
+    <tr>
+      <!-- <th>Id</th> -->
+      <th>Image</th>
+      <th>Service</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let services of list">
+      <!-- <td>{{services.id}}</td> -->
+      <td>{{services.image}} </td>
+      <td>{{services.service}}</td>
+      <td style="display:flex"><button class="btn btn-outline-danger" (click)="deleteService(services.id)" > Delete</button>
+        <button class="btn btn-outline-danger" (click)="editService(services.id)" style="margin-left: 5px;"> Edit</button>
+        <button class="btn btn-outline-danger" (click)="Addcategory()" style="margin-left: 5px;"> AddCategory</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>

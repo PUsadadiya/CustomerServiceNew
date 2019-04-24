@@ -36,60 +36,109 @@ module.exports.routes = {
     controller: 'service',
     action: "findall",
   },
-  //**************************************SERVICE********************************************* */
+  //**************************************CATEGORYE********************************************* */
+  'post /category/addcategory': {
+    controller: 'category',
+    action: "addcategory",
+  },
+  'get /category/view': {
+    controller: 'category',
+    action: "view",
+  },
+  'get /category/:id': {
+    controller: 'category',
+    action: "findById",
+  },
+  'delete /category/:id': {
+    controller: 'category',
+    action: "delete",
+  },
+  'put /category/update/': {
+    controller: 'category',
+    action: "update",
+  },
+  // 'get /public/images/*': {
+  //   controller: 'category',
+  //   action: "upload",
+  // },
+
+  'post /category/upload': {
+      controller: 'category',
+      action: "upload",
+    },
+  //***********************************SERVICE******************************************** */
+
   'post /service/addservice': {
     controller: 'service',
     action: "addservice",
   },
-  'get /service/view': {
+  'get /service/service': {
     controller: 'service',
-    action: "view",
+    action: "service",
   },
-  'get /service/:id': {
+  'get /Service/getAllservice': {
     controller: 'service',
-    action: "findById",
+    action: "getAllservice",
   },
-  'delete /service/:id': {
+  'get /Service/getserviceById': {
     controller: 'service',
-    action: "delete",
+    action: "getserviceById",
   },
-  'put /service/update/': {
+  'get /Service/subservice/:id': {
     controller: 'service',
-    action: "update",
+    action: "subservice",
   },
-  //***********************************CATEGORY******************************************** */
-
-  'post /servicecategory/addcategory': {
-    controller: 'servicecategory',
-    action: "addcategory",
-  },
-  'get /servicecategory/category': {
-    controller: 'servicecategory',
-    action: "category",
-  },
-  'get /Servicecategory/getAllCategory': {
-    controller: 'servicecategory',
-    action: "getAllCategory",
-  },
-  'get /Servicecategory/getCategoryById': {
-    controller: 'servicecategory',
-    action: "getCategoryById",
-  },
-  'get /Servicecategory/subcategory/:id': {
-    controller: 'servicecategory',
-    action: "subcategory",
+  'post /service/upload': {
+    controller: 'service',
+    action: "upload",
   },
   // 'delete /delete/Servicecategory': {
   //   controller: 'servicecategory',
   //   action: "delete",
   // },
-  'delete /Servicecategory/:id': {
-    controller: 'servicecategory',
+  'delete /Service/:id': {
+    controller: 'service',
     action: "delete",
   },
-  'put  /Servicecategory/update/': {
-    controller: 'servicecategory',
+  'put  /Service/update/': {
+    controller: 'service',
     action: "update",
-  }
-  //*********************************************************************************** */
+  },
+  //*************************************ORDERSERVISE********************************************** */
+  'post /OrderService/PlaceOrder': {
+    controller: 'OrderService',
+    action: 'PlaceOrder',
+  },
+  'get /OrderService/OrderList': {
+    controller: 'OrderService',
+    action: 'OrderList',
+  },
+  'get /OrderService/:id': {
+    controller: 'OrderService',
+    action: "findById",
+  },
+  'post /OrderService/:id': {
+    controller: 'OrderService',
+    action: "findById",
+  },
+  'delete /OrderService/:id': {
+    controller: 'OrderService',
+    action: "delete",
+  },
+  'put  /OrderService/update/': {
+    controller: 'OrderService',
+    action: "update",
+  },
+  //*************************************BOOKINGSTATUS********************************************** */
+  'get /Booking/BookingStatus': {
+    controller:'Booking',
+    action: "BookingStatus",
+  },
+  //*************************************IMAGE********************************************** */
+  'GET /img/categories' :{
+    view: 'categories'
+  },
+   'GET /img/services' :{
+     view: 'services'
+    },
 };

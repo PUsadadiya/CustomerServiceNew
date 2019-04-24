@@ -1,8 +1,10 @@
 /**
  * Policy to check if a valid JWT token is present in the request header
  */
-
+// const jwtToken = require('../services/jwToken');
+//  const secret = require('../../config/env/secret').secret;
 module.exports = function(req, res, next) {
+  debugger;
 	var token;
 	//Check if authorization header is present
 	if(req.headers && req.headers.authorization) {

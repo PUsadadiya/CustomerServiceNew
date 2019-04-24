@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { Common } from '../shared/common';
+import { HttpHeaders } from '@angular/common/http';
 // tslint:disable-next-line:import-blacklist
 
 @Injectable({
@@ -14,9 +15,11 @@ import { Common } from '../shared/common';
 export class AuthService implements OnInit, OnDestroy {
   private loggedIn = new BehaviorSubject<boolean>(this.getUserAvailability());
   userinfo: UserInfo;
+
   // loginResponse: LoginResponse;
   constructor(private endpointService: EndpointService, private cookieService: CookieService,
-              private router: Router) { }
+    // tslint:disable-next-line:align
+    private router: Router) { }
   ngOnInit(): void {
   }
 
@@ -42,9 +45,11 @@ export class AuthService implements OnInit, OnDestroy {
         console.log(loginResponse);
 
         if (loginResponse && loginResponse.token) {
-          this.cookieService.set('currentUser', JSON.stringify( loginResponse.token));
-          // console.log(email, password);
-                    // console.log(this.userinfo);
+          // headers: HttpHeaders = new HttpHeaders();
+          this.cookieService.set('currentUser', JSON.stringify(loginResponse));
+          // const headers = new HttpHeaders();
+          // headers.append("Authorization", loginResponse.token);
+          // console.log(headers);
           this.loggedIn.next(true);
           this.router.navigate(['/home']);
         } else {

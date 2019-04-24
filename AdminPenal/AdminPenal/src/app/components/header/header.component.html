@@ -1,28 +1,27 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" *ngIf="isLoggedIn$ | async " >
+<!DOCTYPE html>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" *ngIf="isLoggedIn$ | async ">
   <a class="navbar-brand" routerLink="home"></a>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="home" >Home</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="home">Home</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="" routerLink="list-service">Services</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="" routerLink="addservice" >AddService</a>
+        <a class="nav-link" routerLink="list-category">Categories</a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link"routerLink="addcategory" >Addcategory</a>
+        <a class="nav-link" routerLinkActive="" routerLink="list-order">Orders </a>
       </li>
+     <div>
       <li class="nav-item">
-          <a class="nav-link" routerLinkActive="" routerLink="list-service" >ListService</a>
-        </li>
-      <li class="nav-item">
-          <a class="nav-link"routerLink="list-category" >Listcategory</a>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="" routerLink="login" >login </a>
+      <a class="nav-link" (click)="onLogOut()" routerLinkActive=""  routerLink="login">Logout</a>
       </li>
-      <li class="nav-item">
-      <a class="nav-link" (click)="onLogOut()" routerLinkActive="" routerLink="login" >Logout</a>
-    </li>
+    </div>
     </ul>
   </div>
 </nav>

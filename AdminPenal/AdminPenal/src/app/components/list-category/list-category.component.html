@@ -1,26 +1,29 @@
-<div class="col-md-8 offset-md-2">
+<!DOCTYPE html>
+<div class="col-md-7 offset-md-2">
   <h2 class="text-center"> Category Details</h2>
-  <button class="btn btn-outline-danger" (click)="Addcategory()"> Add Category</button>
-  <table class="table table-bordered">
+  <button  class="btn btn-outline-danger" (click)="AddCategory()"> Add Category</button>
+  <div>
+  <table class="table table-bordered" >
     <thead>
-      <tr>
-        <!-- <th>ID</th> -->
-        <th>SId</th>
-        <th>Image</th>
-        <th>Category</th>
-        <th></th>
-      </tr>
+    <tr>
+      <!-- <th>Id</th> -->
+      <th class="text-center">Type</th>
+      <th class="text-center">Size</th>
+      <th class="text-center">Category</th>
+      <th class="text-center">Action</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let category of list">
-        <!-- <td>{{category.id}}</td> -->
-        <td>{{category.sid}}</td>
-        <td>{{category.image}} </td>
-        <td>{{category.category}}</td>
-        <td style="display:flex"><button class="btn btn-outline-danger" (click)="deleteCategory(category.id)"> Delete</button>
-          <button class="btn btn-outline-danger" (click)="editCategory(category.id)" style="margin-left: 5px;"> Edit</button></td>
-      </tr>
+    <tr *ngFor="let category of list">
+      <!-- <td>{{categorys.id}}</td> -->
+      <td class="text-center">{{category.type}} </td>
+      <td class="text-center">{{category.size}} </td>
+      <td class="text-center">{{category.category}}</td>
+      <td class="text-center"><button class="btn btn-outline-danger" (click)="deleteCategory(category.id)" style="margin-left:8px;"> Delete</button>
+        <button class="btn btn-outline-danger" (click)="editCategory(category.id)" style="margin-left:8px;"> Edit</button>
+        <button class="btn btn-outline-danger" (click)="AddService(category.id)" style="margin-left:8px;"> Add Service</button></td>
+    </tr>
     </tbody>
   </table>
 </div>
-
+</div>

@@ -1,41 +1,36 @@
 var bcrypt = require('bcrypt');
 
 module.exports = {
-
   attributes: {
 
-    // username: {
-    //   type: 'string'
-
-    // },
     firstname: {
-      type: 'string'
-
+      type: 'string',
+      required: true
     },
     lastname: {
-      type: 'string'
-
+      type: 'string',
+      required: true
     },
     email: {
-      type: 'string'
-
+      type: 'string',
+      isEmail: true,
+      required: true,
+      unique: true
     },
     password: {
-      type: 'string'
-
+      type: 'string',
+      required: true
     },
     number: {
-      type: 'number'
+      type: 'number',
+      required: true
     }
   },
-
   beforeCreate: function (value, result) {
-
     // if(!values.password || !values.confirmation || values.password != values.confirmation) {
     //   return cb({err: ["Password does not match confirmation"]});
     // }
-    value.password=bcrypt.hashSync(value.password, 10);
+    value.password = bcrypt.hashSync(value.password, 10);
     result();
-
   }
 }

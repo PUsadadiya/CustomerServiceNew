@@ -1,8 +1,9 @@
 export interface CategoryInfo {
   // jwttoken:string;
-  // Token: string;
+  token: string;
   id: number;
-  sid: number;
+  type: string;
+  size: number;
   image: string;
   category: string;
 }

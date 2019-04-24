@@ -1,6 +1,7 @@
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditServiceComponent } from './edit-service.component';
+import { EditServiceComponent } from './edit-category.component';
 
 describe('EditServiceComponent', () => {
   let component: EditServiceComponent;
@@ -23,3 +24,4 @@ describe('EditServiceComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

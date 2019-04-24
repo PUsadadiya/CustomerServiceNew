@@ -12,17 +12,23 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { EditCategoryComponent  } from './components/edit-category/edit-category.component';
 import { AuthGuard } from './guard/auth.guard';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { ListOrderComponent } from './components/list-order/list-order.component';
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
+import { FooterComponent } from './components/footer/footer.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent},
+  { path: 'footer', component: FooterComponent},
   { path: 'addservice', component: AddserviceComponent },
   { path: 'addcategory', component: AddcategoryComponent },
   { path: 'list-service', component: ListServiceComponent },
   { path: 'list-category', component: ListCategoryComponent },
+  { path: 'list-order', component: ListOrderComponent },
   { path: 'edit-service', component: EditServiceComponent },
   { path: 'edit-category', component: EditCategoryComponent},
+  { path: 'edit-order', component: EditOrderComponent},
   { path: '**', component: PagenotfoundComponent, canActivate: [AuthGuard] }
 ];
 

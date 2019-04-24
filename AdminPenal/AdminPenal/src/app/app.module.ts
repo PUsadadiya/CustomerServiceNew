@@ -19,6 +19,11 @@ import { ListCategoryComponent } from './components/list-category/list-category.
 import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { ListOrderComponent } from './components/list-order/list-order.component';
+
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
+import { DatePipe } from '@angular/common';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,11 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     ListCategoryComponent,
     EditServiceComponent,
     EditCategoryComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    ListOrderComponent,
+    EditOrderComponent,
+    FooterComponent
+
   ],
   imports: [
     BrowserModule,
@@ -43,7 +52,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, CookieService, EndpointService, AuthGuard],
+  providers: [AuthService, CookieService, EndpointService, AuthGuard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

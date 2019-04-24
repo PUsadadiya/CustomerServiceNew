@@ -3,14 +3,17 @@
   <div class="col-md-6 offset-md-3">
     <form [formGroup]="editcategory">
       <div class="form-group">
-        <label for="sid">SId</label>
-        <input type="number" formControlName="sid" class="form-control" id="sid">
-        <label for="image">Image</label>
-        <input type="text" class="form-control" formControlName="image" id="image">
+        <!-- <label for="id">Id</label>
+        <input type="number" formControlName="id" class="form-control" id="id"> -->
+        <label for="type">Type</label>
+        <input type="text" formControlName="type" class="form-control" id="type">
+        <label for="size">Size</label>
+        <input type="text" formControlName="size" class="form-control" id="size">
         <label for="category">Category</label>
-        <input type="text" class="form-control" formControlName="category" id="category">
+        <input type="text" formControlName="category" class="form-control" id="category">
       </div>
     </form>
+
     <div>
       <button class="btn btn-success" id="submit" type="submit" (click)="UpdateCategory()">Update</button>
     </div>

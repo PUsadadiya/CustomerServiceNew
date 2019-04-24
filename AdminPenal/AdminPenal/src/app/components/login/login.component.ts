@@ -14,12 +14,11 @@ export class LoginComponent implements OnInit {
   public loginform: FormGroup;
   public submitted: boolean = false;
   // tslint:disable-next-line:max-line-length
-  constructor(private formBuilder: FormBuilder, private cookieService: CookieService,
-              private authservice: AuthService, private router: Router) {
-   // this.router.navigate(['/login']);
-   if (this.cookieService.get('currentUser') != null) {
-    this.router.navigate(['/home']);
-   }
+  constructor(private formBuilder: FormBuilder, private cookieService: CookieService, private authservice: AuthService, private router: Router) {
+    // this.router.navigate(['/login']);
+    if (this.cookieService.get('currentUser') != null) {
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit() {
@@ -34,13 +33,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.loginform.invalid) {
-        return;
+      return;
     }
     this.authservice.ValidateUser(this.loginform.value.email, this.loginform.value.password);
-  //   if(this.loginForm.controls.email.value == 'dhiraj@gmail.com' && this.loginForm.controls.password.value == 'password') {
-  //     this.router.navigate(['list-user']);
-  // }else {
-  //   this.invalidLogin = true;
- // }
+    //   if(this.loginForm.controls.email.value == 'dhiraj@gmail.com' && this.loginForm.controls.password.value == 'password') {
+    //     this.router.navigate(['list-user']);
+    // }else {
+    //   this.invalidLogin = true;
+    // }
   }
 }

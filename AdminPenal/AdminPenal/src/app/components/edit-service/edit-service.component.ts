@@ -1,14 +1,13 @@
-// import { ListServiceComponent } from './../list-service/list-service.component';
-import { HttpParams, HttpClient } from '@angular/common/http';
 
+
+//
 import { ServiceInfo } from './../../models/serviceinfo';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { EndpointService } from 'src/app/services/endpoint.service';
-import { first, subscribeOn } from 'rxjs/operators';
+import { FormBuilder, NgForm, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorage } from '@ngx-pwa/local-storage';
-import { parse } from 'url';
+import { EndpointService } from 'src/app/services/endpoint.service';
+
 
 @Component({
   selector: 'app-edit-service',
@@ -16,38 +15,35 @@ import { parse } from 'url';
   styleUrls: ['./edit-service.component.css']
 })
 export class EditServiceComponent implements OnInit {
-  editservices: FormGroup;
-  serviceInfo: ServiceInfo;
+  editservice: FormGroup;
+ serviceInfo: ServiceInfo;
   myobj: any;
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private localStorage: LocalStorage, private router: Router, private endpointService: EndpointService) { }
+
   ngOnInit() {
-    // console.log(this.route.queryParams.value);
     this.route.queryParams.subscribe(params => {
       this.myobj = JSON.parse(params["service"]);
-      console.log(this.myobj);
-      console.log(this.myobj.id);
-      console.log(this.myobj.image);
-      this.editservices = this.formBuilder.group({
+      this.editservice = this.formBuilder.group({
         id: [],
-        image: [],
-        service: []
+        cid: [],
+        type: [],
+        size:[],
+       service: []
       });
     });
-
-    this.editservices.controls['id'].patchValue(this.myobj.id);
-    this.editservices.controls['image'].patchValue(this.myobj.image);
-    this.editservices.controls['service'].patchValue(this.myobj.service);
+    this.editservice.controls['id'].patchValue(this.myobj.id);
+    this.editservice.controls['cid'].patchValue(this.myobj.cid);
+    this.editservice.controls['type'].patchValue(this.myobj.type);
+    this.editservice.controls['size'].patchValue(this.myobj.size);
+    this.editservice.controls['service'].patchValue(this.myobj.service);
   }
   UpdateService() {
-    console.log('in update id : ' + this.myobj.id);
-    console.log('in update image :' + this.myobj.image);
-    console.log('in update service :' + this.myobj.service);
-    this.endpointService.updateService(this.editservices.value.id, this.editservices.value.image, this.editservices.value.service)
+
+    // tslint:disable-next-line:max-line-length
+    this.endpointService.updateService(this.editservice.value.id, this.editservice.value.cid, this.editservice.value.type,this.editservice.value.size, this.editservice.value.service)
       .subscribe(
         data => {
-          console.log(this.editservices.value.image);
-          console.log(this.editservices.value.service);
           console.log(data);
           this.router.navigate(['list-service']);
         },
@@ -55,5 +51,4 @@ export class EditServiceComponent implements OnInit {
           alert(error);
         });
   }
-
 }

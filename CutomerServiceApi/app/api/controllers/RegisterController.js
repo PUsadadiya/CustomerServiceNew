@@ -5,48 +5,41 @@ module.exports = {
   create: function (req, res) {
     Register.create(req.body).then(function (err, newUser) {
       if (err) {
-        return res.ok("no user created!!");
+        return res.status(404).send({
+          message: "BAD_REQUEST"
+        });
       } else {
-        //console.log("User created: " + JSON.stringify(newUser));
-        console.log(newUser);
-        return res.ok("user created!");
-      }
-    });
-  },
-
-  findAll: function (req, res) {
-
-    console.log();
-    return Register.find().then(function (_user) {
-
-      if (_user && _user.length > 0) {
-        console.log("Inside find Found .... _user = " + JSON.stringify(_user));
-        return res.ok(_user);
-      } else {
-        console.log("Inside find NOT Found .... ");
-        return res.notfound('user not found');
+        return res.ok("User Registered Successfully!!!");
       }
     }).catch(function (err) {
-      console.log("Inside find ERROR .... ");
-      return res.serverError('user not found');
+      return res.status(404).send({
+        message: "BAD_REQUEST"
+      });
+    });
+  },
+  findAll: function (req, res) {
+    return Register.find().then(function (_user) {
+      if (_user && _user.length > 0) {
+        return res.ok(_user);
+      } else {
+        return res.notfound('User Not Found');
+      }
+    }).catch(function (err) {
+      return res.serverError('User Not Found');
     });
   },
   findById: function (req, res) {
     var id = req.param('id');
-    console.log(id);
     return Register.find().where({
       id: id
     }).then(function (_user) {
       if (_user && _user.length > 0) {
-        console.log("Inside find Found .... _user = " + JSON.stringify(_user));
         return res.ok(_user[0]);
       } else {
-        console.log("Inside find NOT Found .... ");
-        return res.notfound('user not found');
+        return res.notfound('User Not Found');
       }
     }).catch(function (err) {
-      console.log("Inside find ERROR .... ");
-      return res.serverError('user not found');
+      return res.serverError('User Not Found');
     });
   },
   delete: function (req, res) {
@@ -54,9 +47,8 @@ module.exports = {
       id: req.param("id")
     }).exec(function (err, _user) {
       if (_user && _user.length > 0) {
-        console.log("Inside find Found .... _user = " + JSON.stringify(_user));
-        res.ok("record removed");
-
+        // console.log("Inside find Found .... _user = " + JSON.stringify(_user));
+        res.ok("Record Removed!!!");
       } else {
         res.json({
           err: err
@@ -74,22 +66,19 @@ module.exports = {
         Register.update({
           id: req.param("id")
         }, {
-          // username: req.param("username"),
           firstname: req.param("firstname"),
           lastname: req.param("lastname"),
           email: req.param("email"),
           password: req.param("password"),
           number: req.param("number")
-
         }).exec(function (err, updatedUser) {
           if (err) {
             return res.negotiate(err);
           } else {
-            return res.ok("record is updated");
+            return res.ok("Record Updated!!!");
           }
         });
       }
     });
   },
-
 }

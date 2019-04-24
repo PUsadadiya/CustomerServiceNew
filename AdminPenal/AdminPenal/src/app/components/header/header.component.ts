@@ -11,20 +11,28 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-// title = 'AdminPenal';
-isLoggedIn$: Observable<boolean>;
-// username: string;
- title: string;
-  constructor( private router: Router, private authservice: AuthService) { }
+  // title = 'AdminPenal';
+  isLoggedIn$: Observable<boolean>;
+  title: string;
+  constructor(private router: Router, private authservice: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authservice.isLoggedIn;
-    this.title = environment.defaultName;
+    // this.title = environment.defaultName;
+    // this.data = this.authservice.getCookie("token");
+
+    // if (this.data != "") {
+
+    //   this.clicked = true;
+
+    // } else {
+
+    //   this.clicked = false;
+
+    }
+    onLogOut() {
+      this.authservice.logout();
+      // this.router.navigate(['/login']);
+    }
 
   }
-  onLogOut() {
-    this.authservice.logout();
-    // this.router.navigate(['/login']);
-  }
-
-}

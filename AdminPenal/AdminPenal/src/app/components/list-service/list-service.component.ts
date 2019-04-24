@@ -1,31 +1,31 @@
-import { Router, NavigationExtras } from '@angular/router';
-import { ServiceInfo } from './../../models/serviceinfo';
+import { ServiceInfo } from './../../models/Serviceinfo';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router, NavigationExtras } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { filter } from 'rxjs/operators';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+
 @Component({
   selector: 'app-list-service',
   templateUrl: './list-service.component.html',
   styleUrls: ['./list-service.component.css']
 })
 export class ListServiceComponent implements OnInit {
-
-  services: FormGroup;
+  service: FormGroup;
   list: ServiceInfo[];
-
-  // tslint:disable-next-line:max-line-length
-  constructor(private formBuilder: FormBuilder, private router: Router, private endpointService: EndpointService, private localStorage: LocalStorage) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private endpointService: EndpointService) { }
 
   ngOnInit() {
-
-    this.services = this.formBuilder.group({
+    this.getdata();
+  }
+  getdata(): void {
+    this.service = this.formBuilder.group({
       id: [],
-      image: [],
+      cid: [],
+      type: [],
+      size: [],
       service: []
     });
-    this.endpointService.GetService(this.services.value.image, this.services.value.service)
+    this.endpointService.GetService(this.service.value.sid, this.service.value.type, this.service.value.size, this.service.value.service)
       .subscribe(data => {
         console.log(data);
         this.list = data;
@@ -38,20 +38,16 @@ export class ListServiceComponent implements OnInit {
   deleteService(id: ServiceInfo): void {
     this.endpointService.deleteService(id)
       .subscribe(data => {
-        this.services = this.services.filter(services => services.id !== id);
-        this.services.push();
-        console.log(data);
-        this.router.navigate(['service-list']);
+        this.getdata();
       });
 
   }
   editService(id: ServiceInfo): void {
-
     console.log(id);
     this.endpointService.getServiceById(id)
       .subscribe(data => {
         console.log(data);
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
           queryParams: {
             "service": JSON.stringify(data)
           }
@@ -61,9 +57,5 @@ export class ListServiceComponent implements OnInit {
         // this.editservices.setValue(data);
       });
 
-  }
-  Addcategory(): void {
-    this.router.navigate(['addcategory']);
-    console.log('success');
   }
 }

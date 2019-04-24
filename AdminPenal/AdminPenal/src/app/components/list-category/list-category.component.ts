@@ -1,47 +1,58 @@
+
+import { Router, NavigationExtras } from '@angular/router';
 import { CategoryInfo } from './../../models/categoryinfo';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint.service';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { filter } from 'rxjs/operators';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 @Component({
   selector: 'app-list-category',
   templateUrl: './list-category.component.html',
   styleUrls: ['./list-category.component.css']
 })
 export class ListCategoryComponent implements OnInit {
+
   category: FormGroup;
   list: CategoryInfo[];
-  constructor(private formBuilder: FormBuilder, private router: Router, private endpointService: EndpointService) { }
+  public imagePath;
+  public imgURL: any;
+  fileToUpload: File;
+  public message: string;
+
+  // tslint:disable-next-line:max-line-length
+  constructor(private formBuilder: FormBuilder, private router: Router, private endpointService: EndpointService, private localStorage: LocalStorage) { }
 
   ngOnInit() {
+    this.getdata();
+  }
+  getdata() {
     this.category = this.formBuilder.group({
       id: [],
-      sid: [],
-      image: [],
+      type: [],
+      size: [],
       category: []
     });
-    this.endpointService.Getcategory(this.category.value.id, this.category.value.image, this.category.value.category)
+    this.endpointService.GetCategory(this.category.value.size,this.category.value.type,this.category.value.category)
       .subscribe(data => {
         console.log(data);
         this.list = data;
       });
   }
-  Addcategory(): void {
+  AddCategory(): void {
     this.router.navigate(['addcategory']);
     console.log('success');
   }
   deleteCategory(id: CategoryInfo): void {
     this.endpointService.deleteCategory(id)
       .subscribe(data => {
-        this.category = this.category.filter(category => category.id !== id);
-        this.category.push();
         console.log(data);
-        this.router.navigate(['list-category']);
+        this.getdata();
       });
 
   }
   editCategory(id: CategoryInfo): void {
+
     console.log(id);
     this.endpointService.getCategoryById(id)
       .subscribe(data => {
@@ -57,6 +68,14 @@ export class ListCategoryComponent implements OnInit {
       });
 
   }
+  AddService(id: CategoryInfo): void {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        "cid": JSON.stringify(id)
+      }
+    };
+    console.log(navigationExtras);
+    this.router.navigate(['addservice'], navigationExtras);
+    console.log('success');
+  }
 }
-
-

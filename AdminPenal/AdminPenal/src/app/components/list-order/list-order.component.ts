@@ -49,7 +49,7 @@ export class ListOrderComponent implements OnInit {
       });
   }
   onaccepted(id: OrderInfo) {
-    debugger;
+
     console.log(id);
     if (confirm('Are you sure you want Accept order? ')) {
       const status = {

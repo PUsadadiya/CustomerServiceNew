@@ -16,6 +16,10 @@ module.exports = {
     service: {
       type: 'string'
     },
+    price:
+    {
+        type:'number'
+    },
     type:{
       type:'string'
     },

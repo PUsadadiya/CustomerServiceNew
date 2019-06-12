@@ -3,10 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
- production: false,
- // webApiServerUrl: 'http://192.168.32.56:1337/register/login'
-//  webApiServerUrl: 'http://192.168.32.56:1337/service/addservice',
-//  defaultName: 'New user',
+ production: true,
+ webApiServerUrl: 'http://192.168.32.75:1337/'
 //  CookieExpiresInMinutes: 10
 };
 

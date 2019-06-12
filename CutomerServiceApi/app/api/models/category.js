@@ -6,6 +6,7 @@ module.exports = {
     category: {
       type: 'string'
     },
+
     type:{
       type:'string'
     },

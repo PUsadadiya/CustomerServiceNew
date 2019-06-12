@@ -17,7 +17,6 @@ module.exports = {
     });
   },
   subcategory: function (req, res) {
-
     var sid = req.params('id');
     console.log(id);
     return Servicecategory.find().where({

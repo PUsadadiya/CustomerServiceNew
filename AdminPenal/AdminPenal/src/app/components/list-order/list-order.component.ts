@@ -1,12 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Orderstatus } from './orderstatus';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { OrderInfo } from 'src/app/models/orderinfo';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { EndpointService } from 'src/app/services/endpoint.service';
-// import {DialogService} from 'angular-dialog-service';
 
 @Component({
   selector: 'app-list-order',
@@ -18,8 +17,6 @@ export class ListOrderComponent implements OnInit {
   list: OrderInfo[];
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, private router: Router, private httpClient: HttpClient, private endpointService: EndpointService) { }
-
-  orderStatus = Orderstatus;
   ngOnInit() {
     this.getdata();
 
@@ -27,45 +24,39 @@ export class ListOrderComponent implements OnInit {
   getdata() {
     this.order = this.formBuilder.group({
       id: [],
-      userid: [],
-      categoryid: [],
-      serviceid: [],
+      // userid: [],
+      // categoryid: [],
+      // serviceid: [],
       username: [],
       email: [],
+      category_name: [],
+      service_name: [],
       mobile: [],
-      location: [],
+      OrderAddress: [],
       start_date: [],
       start_time: [],
       end_date: [],
-      OrderStatus: []
+      totalamount: [],
+      orderstatus: []
     });
-    this.endpointService.GetOrderList(this.order.value.id, this.order.value.userid, this.order.value.categoryid, this.order.value.serviceid,
-      this.order.value.username, this.order.value.email, this.order.value.mobile, this.order.value.location,
-      this.order.value.start_date, this.order.value.start_time, this.order.value.end_date, this.order.value.OrderStatus)
+    // this.order.value.userid, this.order.value.categoryid, this.order.value.serviceid,
+    // tslint:disable-next-line:max-line-length
+    this.endpointService.GetOrderList(this.order.value.id, this.order.value.username, this.order.value.email, this.order.value.category_name, this.order.value.service_name, this.order.value.mobile, this.order.value.OrderAddress,this.order.value.start_date, this.order.value.start_time, this.order.value.end_date, this.order.value.totalamount, this.order.value.orderstatus)
       .subscribe(data => {
-        console.log();
+        console.log(data);
         this.list = data;
 
       });
   }
-  orderid(userid: OrderInfo) {
-    debugger;
-
-
-    console.log(userid);
-    // this.endpointService.getOrderById()
-    //   .subscribe(data => {
-    //     console.log(data);
-    //   });
-  }
   onaccepted(id: OrderInfo) {
+    debugger;
     console.log(id);
     if (confirm('Are you sure you want Accept order? ')) {
       const status = {
-        'OrderStatus': 0,
+        'orderstatus': 0,
         'id': id
       };
-      this.httpClient.put('http://192.168.32.56:1337/OrderService/update/', status).subscribe(
+      this.httpClient.put(environment.webApiServerUrl + 'OrderService/update/', status).subscribe(
         data => {
           console.log(data);
           this.getdata();
@@ -73,25 +64,27 @@ export class ListOrderComponent implements OnInit {
     }
   }
   onrejected(id: OrderInfo) {
+    debugger;
     if (confirm(' Are you sure you want to Reject order? ')) {
       const status = {
-        'OrderStatus': 1,
+        'orderstatus': 1,
         'id': id
       };
-      return this.httpClient.put<any>('http://192.168.32.56:1337/OrderService/update/', status).subscribe(
+      return this.httpClient.put<any>(environment.webApiServerUrl + 'OrderService/update/', status).subscribe(
         data => {
           console.log(data);
           this.getdata();
         });
-      }
+    }
   }
   oncompleted(id: OrderInfo) {
+    debugger;
     if (confirm(' order Completed ? ')) {
       const status = {
-        'OrderStatus': 2,
+        'orderstatus': 2,
         'id': id
       };
-      this.httpClient.put('http://192.168.32.56:1337/OrderService/update/', status).subscribe(
+      this.httpClient.put(environment.webApiServerUrl + 'OrderService/update/', status).subscribe(
         data => {
           console.log(data);
           this.getdata();

@@ -16,6 +16,7 @@
 module.exports.models = {
   datastores: 'dev',
   migrate:'safe',
+
  // datastores:'authApiMysql',
   /***************************************************************************
   *                                                                          *

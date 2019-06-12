@@ -294,9 +294,6 @@ module.exports = {
   log: {
     level: 'debug'
   },
-
-
-
   http: {
 
     /***************************************************************************
@@ -337,10 +334,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-  // port: 80,
-
-
-
+   port: 80,
   /**************************************************************************
   *                                                                         *
   * Configure an SSL certificate                                            *
@@ -360,8 +354,6 @@ module.exports = {
   **************************************************************************/
   // ssl: undefined,
 
-
-
   /**************************************************************************
   *                                                                         *
   * Production overrides for any custom settings specific to your app.      *
@@ -371,7 +363,7 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   custom: {
-    baseUrl: 'https://example.com',
+    baseUrl: 'http://192.168.32.75:1337/',
     internalEmailAddress: 'support@example.com',
 
     // mailgunDomain: 'mg.example.com',
@@ -390,7 +382,5 @@ module.exports = {
     //--------------------------------------------------------------------------
 
   },
-
   secretOrPrivateKey: 'mysecret'
-
 };

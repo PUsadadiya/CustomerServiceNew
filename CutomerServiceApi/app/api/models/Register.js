@@ -21,7 +21,7 @@ module.exports = {
       type: 'string',
       required: true
     },
-    number: {
+    mobile: {
       type: 'number',
       required: true
     }

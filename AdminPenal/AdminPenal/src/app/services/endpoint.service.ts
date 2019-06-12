@@ -1,4 +1,3 @@
-
 import { OrderInfo } from '../models/OrderInfo';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,75 +8,56 @@ import { environment } from 'src/environments/environment';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse } from '../models/loginResponse';
 import { CategoryInfo } from '../models/categoryinfo';
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class EndpointService {
-
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
-
   ValidateUser(email, password): Observable<LoginResponse> {
+    // console.log(this.rootURL);
     const loginParameter = {
       'email': email,
       'password': password
     };
     console.log(loginParameter);
-    return this.httpClient.post<any>('http://192.168.32.56:1337/login/login', loginParameter);
-
+    return this.httpClient.post<any>(environment.webApiServerUrl + 'login/login', loginParameter);
   }
   AddCategory(image, category): Observable<CategoryInfo> {
-    // const uploadFormData = new FormData();
-    // uploadFormData.append('image', fileToUpload,fileToUpload.name);
-    // uploadFormData.append('category',category);
-    // console.log( uploadFormData);
     const newcategory = {
       'image': image,
       'category': category
     };
     console.log(newcategory);
-    return this.httpClient.post<any>('http://192.168.32.56:1337/category/addcategory', newcategory);
+    return this.httpClient.post<any>(environment.webApiServerUrl + 'category/upload', newcategory);
   }
   GetCategory(type, size, category): Observable<CategoryInfo[]> {
-    // debugger;
     const userinfo = JSON.parse(this.cookieService.get('currentUser'));
-    console.log(userinfo.token);
     const categorylist = new HttpParams()
       .set('type', type)
       .set('size', size)
       .set('category', category);
-    return this.httpClient.get<any>('http://192.168.32.56:1337/category/view', {
+    return this.httpClient.get<any>(environment.webApiServerUrl + 'category/view', {
       params: categorylist
     });
 
   }
   deleteCategory(id): Observable<any> {
-    return this.httpClient.delete<CategoryInfo[]>('http://192.168.32.56:1337/category/' + id);
+    return this.httpClient.delete<CategoryInfo[]>(environment.webApiServerUrl + 'category/' + id);
   }
   updateCategory(id, type, size, category): Observable<CategoryInfo> {
-
-    // const servicelist = new HttpParams()
-    // .set('id',id)
-    // .set('image', image)
-    // .set('service', service);
     const categorylist = {
       "id": id,
-      "type":type,
-      "size":size,
+      "type": type,
+      "size": size,
       "category": category
     };
-    return this.httpClient.put<any>('http://192.168.32.56:1337/category/update/', categorylist);
-    // params: servicelist
-    // });
+    return this.httpClient.put<any>(environment.webApiServerUrl + 'category/update/', categorylist);
   }
   getCategoryById(id): Observable<any> {
-    console.log(id);
-    return this.httpClient.get<CategoryInfo[]>('http://192.168.32.56:1337/category/' + id);
+    return this.httpClient.get<CategoryInfo[]>(environment.webApiServerUrl + 'category/' + id);
   }
   getServiceById(id): Observable<any> {
-    console.log(id);
-    return this.httpClient.get<ServiceInfo[]>('http://192.168.32.56:1337/Service/' + id);
+    return this.httpClient.get<ServiceInfo[]>(environment.webApiServerUrl + 'Service/' + id);
   }
   AddService(cid, image, service): Observable<ServiceInfo> {
     const newservice = {
@@ -85,66 +65,65 @@ export class EndpointService {
       "image": image,
       "service": service
     };
-    // .set('image', image)
-    // .set('service', service);
-    console.log(newservice);
-    return this.httpClient.post<any>('http://192.168.32.56:1337/service/addservice', newservice);
+    // let formData = new FormData();
+    // formData.append('cid',this.addservice.value.cid);
+    // formData.append('image', this.fileToUpload, this.fileToUpload.name);
+    // formData.append('service', this.fileToUpload.name);
+    // console.log(formData);
+    // this.httpClient
+    //   .post(environment.webApiServerUrl + 'service/upload', formData).subscribe(data => {
+    //     console.log(data);
+    //     this.router.navigate(['list-service']);
+    //   });
+    return this.httpClient.post<any>(environment.webApiServerUrl + 'service/upload', newservice);
   }
-  GetService(cid, type, size, service) {
+  GetService(cid, type, size, service,price) {
     const servicelist = new HttpParams()
       .set('cid', cid)
       .set('type', type)
       .set('size', size)
-      .set('service', service);
-    return this.httpClient.get<ServiceInfo[]>('http://192.168.32.56:1337/Service/Service', {
+      .set('service', service)
+      .set('price', price);
+    return this.httpClient.get<ServiceInfo[]>(environment.webApiServerUrl + 'Service/Service', {
       params: servicelist
     });
 
   }
   deleteService(id): Observable<any> {
-    return this.httpClient.delete<ServiceInfo[]>('http://192.168.32.56:1337/Service/' + id);
+    return this.httpClient.delete<ServiceInfo[]>(environment.webApiServerUrl + 'Service/' + id);
   }
-  updateService(id, cid, type, size, service): Observable<ServiceInfo> {
+  updateService(id, cid, type, size, service,price): Observable<ServiceInfo> {
     const updateservice = {
       "id": id,
       "cid": cid,
       "type": type,
       "size": size,
-      "service": service
+      "service": service,
+      "price": price
     };
-    return this.httpClient.put<any>('http://192.168.32.56:1337/service/update/', updateservice);
+    return this.httpClient.put<any>(environment.webApiServerUrl + 'service/update/', updateservice);
   }
-  GetOrderList(id, userid, categoryid, serviceid, username, email, mobile, location, start_date, start_time, end_date, OrderStatus) {
+  // tslint:disable-next-line:max-line-length
+  GetOrderList(id, username, email,categoryname,servicename, mobile,OrderAddress, start_date, start_time, end_date,totalamount,orderstatus) {
     const Orderlist = new HttpParams()
       .set('id', id)
-      .set('userid', userid)
-      .set('categoryid', categoryid)
-      .set('serviceid', serviceid)
+      // .set('userid', userid)
+      // .set('categoryid', categoryid)
+      // .set('serviceid', serviceid)
       .set('username', username)
       .set('email', email)
+      .set('categoryname', categoryname)
+      .set('servicename', servicename)
       .set('mobile', mobile)
-      .set('location', location)
+      .set('OrderAddress', OrderAddress)
       .set('start_date', start_date)
       .set('start_time', start_time)
       .set('end_date', end_date)
-      .set('status', OrderStatus);
-    return this.httpClient.get<OrderInfo[]>('http://192.168.32.56:1337/OrderService/OrderList', {
+      .set('end_date', totalamount)
+      .set('status', orderstatus);
+    return this.httpClient.get<OrderInfo[]>(environment.webApiServerUrl + 'OrderService/OrderList', {
       params: Orderlist
     });
   }
-  deleteOrder(id): Observable<any> {
-    return this.httpClient.delete<OrderInfo[]>('http://192.168.32.56:1337/OrderService/' + id);
-  }
-  getOrderById(id): Observable<any> {
-    console.log(id);
-    return this.httpClient.get<OrderInfo[]>('http://192.168.32.56:1337/OrderService/' + id);
-  }
-  // updateOrder(id, OrderStatus): Observable<OrderInfo> {
-  // //   // debugger;
-  // //   const updateorder = {
-  // //     "id":id,
-  // //     "OrderStatus":OrderStatus
-  // //   };
-  //   return this.httpClient.put<any>('http://192.168.32.56:1337/OrderService/update/', updateorder);
-  // }
+
 }

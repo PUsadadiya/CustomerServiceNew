@@ -1,28 +1,23 @@
-
+<!DOCTYPE html>
 <div class="container">
   <div class="row">
-      <div class="col-md-6 offset-md-3">
+  <div class="col-md-6 offset-md-3">
   <h2 class="text-center">Add Service</h2>
   <form [formGroup]="addservice"enctype="multipart/form-data" (ngSubmit)="AddService()">
-  <!-- <form> -->
-      <!-- <div class="form-group">
-          <label for="cid">cid</label>
-          <input  formControlName="cid" placeholder="cid" name="cid" class="form-control" id="cid">
-        </div> -->
     <div class="form-group">
-      <!-- <label for="image">image</label>
-      <input formControlName="image" placeholder="Image" name="image" class="form-control" id="image"> -->
       <img [src]="imgURL" style="width: 250px; height: 200px" *ngIf="imgURL">
       <input #file type="file" name="image"(change)="preview(file.files)" accept="image/*">
     </div>
-
-    <!-- <div class="form-group">
+    <div class="form-group">
       <label for="service">Service Name</label>
-      <input formControlName="service" placeholder="service Name" name="service" class="form-control" id="service">
-    </div> -->
-
+      <input formControlName="service" placeholder="Service Name" name="service" class="form-control" id="service">
+    </div>
+    <div class="form-group">
+      <label for="price">Service Price</label>
+      <input formControlName="price" placeholder="price" name="price" class="form-control" id="price">
+    </div>
     <button class="btn btn-success" id="submit" type="submit">Add Service</button>
   </form>
-</div>
-</div>
+  </div>
+  </div>
 </div>

@@ -5,8 +5,9 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 const jwtToken = require('../services/jwToken');
+let mysql = require('sails-mysql');
+let config = require('../../config/datastores');
 module.exports = {
-
   PlaceOrder: function (req, res) {
     debugger;
     if (req.headers && req.headers.authorization) {
@@ -21,65 +22,73 @@ module.exports = {
       Register.findOne({
         id: req.param('userid')
       }).exec(function (err, user) {
-        req.body.username = user.firstname;
-        req.body.email = user.email;
-        req.body.mobile = user.number;
-        console.log(req.body);
-        OrderService.create(req.body).then(function (err, order) {
+        var service = {
+          userid: req.body.userid,
+          username: user.firstname,
+          email: user.email,
+          mobile: user.mobile,
+          start_date: req.body.start_date,
+          start_time: req.body.start_time,
+          end_date: req.body.end_date,
+          categoryid: req.body.categoryid,
+          serviceid: req.body.serviceid,
+          totalamount: req.body.totalamount,
+          category_name: req.body.category_name,
+          service_name: req.body.service_name,
+          addressid: req.body.addressid
+        }
+        OrderService.create(service).then(function (err, order) {
           if (err) {
-            return res.ok("Order Rejecteed!!!");
+            return res.ok("Order Rejected!!!");
           } else {
             return res.ok("Order Accepted!!!");
           }
         }).catch(function (err) {
-          return res.serverError(' No Order Found!!!');
+          return res.serverError(' No Order Place!!!');
         })
       });
     }
   },
   OrderList: function (req, res) {
-    return OrderService.find().then(function (_order) {
-      if (_order && _order.length > 0) {
-        return res.ok(_order);
+    Register.query('CALL getall_Orderaddress()', function (err, result, field) {
+      if (err) {
+        res.status(400).send(err);
       } else {
-        return res.notfound('No Order Found');
+        res.status(200).send(result.rows[0]);
       }
-    }).catch(function (err) {
-      return res.serverError('No Order Found');
     });
   },
   findById: function (req, res) {
-    var id = req.param('id');
-    return OrderService.find().where({
-      id: id
-    }).then(function (_order) {
-      if (_order && _order.length > 0) {
-        return res.ok(_order[0]);
-      } else {
-        return res.notfound('No Order Found');
-      }
-    }).catch(function (err) {
-      return res.serverError('No Order Found');
-    });
-  },
-  delete: function (req, res) {
-    OrderService.destroy({
-      id: req.param("id")
-    }).exec(function (err) {
-      if (err) {
-        res.json({
-          err: err
-        })
-      }
-      res.json('Order Removed');
-    })
+    if (req.headers && req.headers.authorization) {
+      var token = req.headers.authorization;
+      var user_id = 0;
+      jwtToken.verify(token, function (err, decoded) {
+        if (decoded) {
+          user_id = decoded.data.id;
+        } else {
+          console.log("Error");
+        }
+      })
+      OrderAddress.find().where({
+        userid: user_id
+      }).then(function (_order) {
+        if (_order && _order.length > 0) {
+          res.send(_order);
+        } else {
+          return res.serverError('No Order Found');
+        }
+      }).catch(function (err) {
+        return res.serverError(err);
+      });
+    }
   },
   update: function (req, res) {
     var order = req.body;
+
     OrderService.update({
       id: order.id
     }).set({
-      OrderStatus: order.OrderStatus
+      orderstatus: order.orderstatus
     }).exec(function (err, updatedOrder) {
       if (err) {
         return res.negotiate(err);
@@ -88,58 +97,28 @@ module.exports = {
       }
     });
   },
-  Orderdetail: function (req, res) {
-    //   debugger;
-    //   if (req.headers && req.headers.authorization) {
-    //     var token = req.headers.authorization;
-    //     jwtToken.verify(token, function (err, decoded) {
-    //       if (decoded) {
-    //         var userid = decoded.data.id;
-    //       } else {
-    //         console.log("error");
-    //       }
-    //       console.log(userid);
-    //       OrderService.find({
-    //         userid: userid
-    //       }).then(function (_order) {
-    //         let response =[];
-    //         let OrderStatus = [];
-    //         let categoryid = [];
-    //         let serviceid = [];
-    //         for (var i = 0; i < _order.length; i++) {
-    //           OrderStatus.push(_order[i].OrderStatus);
-    //           categoryid.push(_order[i].categoryid);
-    //           serviceid.push(_order[i].serviceid);
-    //         }
-    //         category.find({
-    //           id: categoryid
-    //         }).then(function (_category) {
-    //           console.log(_category);
-    //           let categoryname = [];
-    //           for (var i = 0; i < _category.length; i++) {
-    //             categoryname.push(_category[i].category);
-    //           }
-    //           // console.log(categoryname);
-    //           Service.find({
-    //             id: serviceid
-    //           }).then(function (_service) {
-    //             let servicename = [];
-    //             for (var i = 0; i < _service.length; i++) {
-    //               servicename.push(_service[i].service);
-    //             }
-    //             let details = {
-    //               "OrderStatus": OrderStatus,
-    //               "categoryname":categoryname,
-    //               "servicename": servicename
-    //             }
-    //             res.json({
-    //               details: details
-    //             });
-    //           })
-    //         })
-
-    //       })
-    //     });
-    //   }
-  },
+  address: function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var token = req.headers.authorization;
+      jwtToken.verify(token, function (err, decoded) {
+        if (decoded) {
+          req.body.userid = decoded.data.id;
+        } else {
+          console.log("Error");
+        }
+      })
+      var userid = req.body.userid;
+      var OrderAddress = req.body.location;
+      Register.query('CALL OrderAddress("' + userid + '","' + OrderAddress + '")', function (err, rows, field) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          var addressId = rows.rows[0][0].OrderId;
+          res.json(200, {
+            addressId: addressId
+          });
+        }
+      });
+    }
+  }
 };

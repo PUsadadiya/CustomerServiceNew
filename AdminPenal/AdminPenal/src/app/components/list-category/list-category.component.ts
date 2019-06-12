@@ -1,4 +1,3 @@
-
 import { Router, NavigationExtras } from '@angular/router';
 import { CategoryInfo } from './../../models/categoryinfo';
 import { Component, OnInit } from '@angular/core';
@@ -12,17 +11,14 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
   styleUrls: ['./list-category.component.css']
 })
 export class ListCategoryComponent implements OnInit {
-
   category: FormGroup;
   list: CategoryInfo[];
   public imagePath;
   public imgURL: any;
   fileToUpload: File;
   public message: string;
-
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, private router: Router, private endpointService: EndpointService, private localStorage: LocalStorage) { }
-
   ngOnInit() {
     this.getdata();
   }
@@ -33,7 +29,7 @@ export class ListCategoryComponent implements OnInit {
       size: [],
       category: []
     });
-    this.endpointService.GetCategory(this.category.value.size,this.category.value.type,this.category.value.category)
+    this.endpointService.GetCategory(this.category.value.size, this.category.value.type, this.category.value.category)
       .subscribe(data => {
         console.log(data);
         this.list = data;
@@ -41,37 +37,29 @@ export class ListCategoryComponent implements OnInit {
   }
   AddCategory(): void {
     this.router.navigate(['addcategory']);
-    console.log('success');
   }
   deleteCategory(id: CategoryInfo): void {
     this.endpointService.deleteCategory(id)
       .subscribe(data => {
-        console.log(data);
         this.getdata();
       });
 
   }
   editCategory(id: CategoryInfo): void {
-
-    console.log(id);
     this.endpointService.getCategoryById(id)
       .subscribe(data => {
-        console.log(data);
         const navigationExtras: NavigationExtras = {
           queryParams: {
-            "category": JSON.stringify(data)
+            'category': JSON.stringify(data)
           }
         };
-        console.log(navigationExtras);
         this.router.navigate(['edit-category'], navigationExtras);
-        // this.editservices.setValue(data);
       });
-
-  }
+ }
   AddService(id: CategoryInfo): void {
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        "cid": JSON.stringify(id)
+        'cid': JSON.stringify(id)
       }
     };
     console.log(navigationExtras);

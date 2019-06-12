@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <div class="col-md-7 offset-md-2">
   <h2 class="text-center"> Service Details</h2>
-  <!-- <button class="btn btn-outline-danger" (click)="AddService()"> Add Service</button> -->
   <table class="table table-bordered">
     <thead>
       <tr>
-        <!-- <th>ID</th> -->
-        <!-- <th class="text-center">CId</th> -->
         <th class="text-center">Type</th>
         <th class="text-center">Size</th>
         <th class="text-center">Service</th>
+        <th class="text-center">Price</th>
         <th class="text-center">Action</th>
       </tr>
     </thead>
@@ -18,6 +16,7 @@
         <td class="text-center">{{service.type}} </td>
         <td class="text-center">{{service.size}} </td>
         <td class="text-center">{{service.service}}</td>
+        <td class="text-center">{{service.price}}</td>
         <td class="text-center"><button class="btn btn-outline-danger" (click)="deleteService(service.id)" style="margin-left:8px;"> Delete</button>
           <button class="btn btn-outline-danger" (click)="editService(service.id)" style="margin-left:8px;"> Edit</button></td>
       </tr>

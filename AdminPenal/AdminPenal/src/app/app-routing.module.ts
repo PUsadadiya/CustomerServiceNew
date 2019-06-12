@@ -13,7 +13,7 @@ import { EditCategoryComponent  } from './components/edit-category/edit-category
 import { AuthGuard } from './guard/auth.guard';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ListOrderComponent } from './components/list-order/list-order.component';
-import { EditOrderComponent } from './components/edit-order/edit-order.component';
+
 import { FooterComponent } from './components/footer/footer.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,7 +28,6 @@ const routes: Routes = [
   { path: 'list-order', component: ListOrderComponent },
   { path: 'edit-service', component: EditServiceComponent },
   { path: 'edit-category', component: EditCategoryComponent},
-  { path: 'edit-order', component: EditOrderComponent},
   { path: '**', component: PagenotfoundComponent, canActivate: [AuthGuard] }
 ];
 

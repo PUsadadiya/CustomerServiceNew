@@ -1,10 +1,9 @@
+<!DOCTYPE html>
 <div class="container">
   <h2 class="text-center">Update Category</h2>
   <div class="col-md-6 offset-md-3">
     <form [formGroup]="editcategory">
       <div class="form-group">
-        <!-- <label for="id">Id</label>
-        <input type="number" formControlName="id" class="form-control" id="id"> -->
         <label for="type">Type</label>
         <input type="text" formControlName="type" class="form-control" id="type">
         <label for="size">Size</label>
@@ -13,7 +12,6 @@
         <input type="text" formControlName="category" class="form-control" id="category">
       </div>
     </form>
-
     <div>
       <button class="btn btn-success" id="submit" type="submit" (click)="UpdateCategory()">Update</button>
     </div>

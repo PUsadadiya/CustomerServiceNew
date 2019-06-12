@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,12 +13,10 @@ export class LoginComponent implements OnInit {
   public submitted: boolean = false;
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, private cookieService: CookieService, private authservice: AuthService, private router: Router) {
-    // this.router.navigate(['/login']);
     if (this.cookieService.get('currentUser') != null) {
       this.router.navigate(['/home']);
     }
   }
-
   ngOnInit() {
     this.loginform = this.formBuilder.group(
       {
@@ -36,10 +32,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authservice.ValidateUser(this.loginform.value.email, this.loginform.value.password);
-    //   if(this.loginForm.controls.email.value == 'dhiraj@gmail.com' && this.loginForm.controls.password.value == 'password') {
-    //     this.router.navigate(['list-user']);
-    // }else {
-    //   this.invalidLogin = true;
-    // }
+
   }
 }

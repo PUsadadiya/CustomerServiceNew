@@ -2,54 +2,56 @@
 <div class="col-md-16">
   <h2 class="text-center"> Order Details</h2>
   <table class="table table-bordered">
-
     <thead>
-
       <tr>
         <th class="text-center">User Name</th>
         <th class="text-center">Email</th>
+        <th class="text-center">Category Name</th>
+        <th class="text-center">Service Name</th>
         <th class="text-center">Mobile</th>
-        <!-- <th class="text-center">Address</th> -->
         <th class="text-center">Location</th>
         <th class="text-center">Start Date</th>
         <th class="text-center">Start Time</th>
         <th class="text-center">End Date</th>
+        <th class="text-center">TotalAmount</th>
         <th class="text-center">Status</th>
         <th class="text-center">Action</th>
       </tr>
     </thead>
-    <tbody  class="text-center">
+    <tbody class="text-center">
       <tr *ngFor= "let order of list">
         <td>{{order.username}}</td>
         <td>{{order.email}}</td>
+        <td>{{order.category_name}}</td>
+        <td>{{order.service_name}}</td>
         <td>{{order.mobile}}</td>
-        <!-- <td>{{order.address}}</td> -->
-        <td>{{order.location}} </td>
+        <td>{{order.OrderAddress}} </td>
         <td>{{order.start_date | date: 'yyyy-MM-dd'}}</td>
         <td>{{order.start_time}}</td>
         <td>{{order.end_date | date: 'yyyy-MM-dd'}}</td>
+        <td>{{order.totalamount}}</td>
         <td>
-            <div *ngIf="order.OrderStatus ==-1">
-                <div [ngStyle]="{'color': 'red', 'font-size': '16px', 'font-weight': 'bold'}">Pending</div>
-
+          <div *ngIf=""></div>
+            <div *ngIf="order.orderstatus ==-1">
+                <div [ngStyle]="{'color': 'blue', 'font-size': '16px', 'font-weight': 'bold'}">Pending</div>
             </div>
-            <div *ngIf="order.OrderStatus ==0">
-                <div [ngStyle]="{'color': 'blue', 'font-size': '16px', 'font-weight': 'bold'}">Accepted</div>
+            <div *ngIf="order.orderstatus ==0">
+                <div [ngStyle]="{'color': 'green', 'font-size': '16px', 'font-weight': 'bold'}">Accepted</div>
             </div>
-            <div *ngIf="order.OrderStatus ==1">
-                <div [ngStyle]="{'color': 'orange', 'font-size': '16px', 'font-weight': 'bold'}">Rejected</div>
+            <div *ngIf="order.orderstatus ==1">
+                <div [ngStyle]="{'color': 'red', 'font-size': '16px', 'font-weight': 'bold'}">Rejected</div>
             </div>
-            <div *ngIf="order.OrderStatus==2">
-                <div [ngStyle]="{'color': 'green', 'font-size': '16px', 'font-weight': 'bold'}">Completed</div>
+            <div *ngIf="order.orderstatus==2">
+                <div [ngStyle]="{'color': 'orange', 'font-size': '16px', 'font-weight': 'bold'}">Completed</div>
             </div>
-            <!-- <div [ngStyle]="{'color': 'red', 'font-size': '16px', 'font-weight': 'bold'}">pending</div> -->
+            <div *ngIf="order.orderstatus==3">
+              <div [ngStyle]="{'color': 'blue', 'font-size': '16px', 'font-weight': 'bold'}">Canceled</div>
+            </div>
           </td>
           <td>
-             <button *ngIf="order.OrderStatus ==-1 "><i class="fa fa-times fa-xs" (click)=" onrejected(order.id)" aria-hidden="true"></i></button>
-             <button *ngIf="order.OrderStatus ==-1" (click)=" onaccepted(order.id)"><i class="fa fa-check" aria-hidden="true"></i></button>
-             <!-- <button><i class="fa fa-trash fa-1x" aria-hidden="true"></i></button> -->
-             <button *ngIf="order.OrderStatus == 0 "(click)="oncompleted(order.id)"> <i class="fa fa-hourglass"></i></button>
-
+             <button *ngIf="order.orderstatus ==-1 "><i class="fa fa-times fa-xs" (click)=" onrejected(order.id)" aria-hidden="true"></i></button>
+             <button *ngIf="order.orderstatus ==-1" (click)=" onaccepted(order.id)"><i class="fa fa-check" aria-hidden="true"></i></button>
+             <button *ngIf="order.orderstatus == 0 "(click)="oncompleted(order.id)"> <i class="fa fa-hourglass"></i></button>
           </td>
     </tr>
     </tbody>

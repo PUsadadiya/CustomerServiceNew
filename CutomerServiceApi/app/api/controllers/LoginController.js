@@ -8,10 +8,26 @@ var bcrypt = require('bcrypt');
 module.exports = {
   login: function (req, res) {
     var email = req.param('email');
+    // var mobile = req.param('mobile');
     var password = req.param('password');
     if (!(email && password)) {
       return res.send('No Email Or Password Specified!!!', 500);
     }
+    // Register.find().where({
+    //   or: [{
+    //       email: email
+    //     },
+    //     {
+    //       mobile: mobile
+    //     }
+    //   ]
+    // }).exec(function (err, user) {
+    //     if (err || !user) {
+    //       return res.send('Invalid Email And Password Combination!!!', 500);
+    //     }
+    //     else{
+    //       console.log(user);
+    //     }
     Register.findOne({
       email: email
     }).exec(function (err, user) {
@@ -29,6 +45,7 @@ module.exports = {
       } else {
         return res.send('Invalid  Combination!!!', 500);
       }
-    });
+      });
   },
+
 };

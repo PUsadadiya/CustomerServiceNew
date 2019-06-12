@@ -4,18 +4,27 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
 module.exports = {
   addservice: function (req, res) {
-    Service.create(req.body).then(function (err, newservice) {
-      if (err) {
-        return res.ok("No Service Added!!!");
-      } else {
-        return res.ok("Service Added!!!");
-      }
-    }).catch(function (err) {
-      return res.status(404).send({
-        message: "BAD_REQUEST"
+    var fileName = req.body.service + '.jpg';
+    req.file('image').upload({
+      maxBytes: 100000000,
+      saveAs: __dirname + '/../../assets/img/services/' + fileName
+    }, function (err, uploadedFile) {
+      if (err) return res.negotiate(err);
+      req.body.image ='http://192.168.32.75:1337/img/services/' + fileName;
+      req.body.type=uploadedFile[0].type;
+      req.body.size=uploadedFile[0].size;
+      Service.create(req.body).then(function (err, newservice) {
+        if (err) {
+          return res.ok("No servie Added!!");
+        } else {
+          return res.ok("Service Added!");
+        }
+      }).catch(function (err) {
+        return res.status(404).send({
+          message: "BAD_REQUEST"
+        });
       });
     });
   },
@@ -82,7 +91,8 @@ module.exports = {
       cid: service.cid,
       type: service.type,
       size:service.size,
-      service: service.service
+      service: service.service,
+      price:service.price
     }).exec(function (err, updatedservice) {
       if (err) {
         return res.negotiate(err);
@@ -90,27 +100,5 @@ module.exports = {
         return res.ok('Service Updated!!!');
       }
     });
-  },
-  upload: function (req, res) {
-    var fileName = req.body.service.split('.').slice(0, -1).join('.') + '.jpg';
-    req.file('image').upload({
-      maxBytes: 100000000,
-      saveAs: __dirname + '/../../assets/img/services/' + fileName
-    }, function (err, uploadedFile) {
-      if (err) return res.negotiate(err);
-      console.log(uploadedFile[0]);
-      // req.body.image = uploadedFile[0].fd;
-      req.body.image = 'http://localhost:1337/img/services/' + uploadedFile[0].filename.split('.').slice(0, -1).join('.') + '.jpg';
-      req.body.type=uploadedFile[0].type;
-      req.body.size=uploadedFile[0].size;
-      req.body.service = uploadedFile[0].filename.split('.').slice(0, -1).join('.');
-      Service.create(req.body).then(function (err, newservice) {
-        if (err) {
-          return res.ok("No servie Added!!");
-        } else {
-          return res.ok("Service Added!");
-        }
-      })
-    });
   }
-}
+};

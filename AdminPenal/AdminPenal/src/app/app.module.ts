@@ -21,9 +21,9 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ListOrderComponent } from './components/list-order/list-order.component';
 
-import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { DatePipe } from '@angular/common';
 import { FooterComponent } from './components/footer/footer.component';
+
 
 @NgModule({
   declarations: [
@@ -40,9 +40,7 @@ import { FooterComponent } from './components/footer/footer.component';
     EditCategoryComponent,
     PagenotfoundComponent,
     ListOrderComponent,
-    EditOrderComponent,
     FooterComponent
-
   ],
   imports: [
     BrowserModule,

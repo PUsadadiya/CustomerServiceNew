@@ -22,9 +22,8 @@ export class EditCategoryComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private localStorage: LocalStorage, private router: Router, private endpointService: EndpointService) { }
   ngOnInit() {
-    // console.log(this.route.queryParams.value);
     this.route.queryParams.subscribe(params => {
-      this.myobj = JSON.parse(params["category"]);
+      this.myobj = JSON.parse(params['category']);
       this.editcategory = this.formBuilder.group({
         id: [],
         type: [],

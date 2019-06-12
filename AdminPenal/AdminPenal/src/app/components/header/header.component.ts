@@ -18,21 +18,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authservice.isLoggedIn;
-    // this.title = environment.defaultName;
-    // this.data = this.authservice.getCookie("token");
-
-    // if (this.data != "") {
-
-    //   this.clicked = true;
-
-    // } else {
-
-    //   this.clicked = false;
-
-    }
-    onLogOut() {
-      this.authservice.logout();
-      // this.router.navigate(['/login']);
-    }
-
   }
+  onLogOut() {
+    this.authservice.logout();
+    // this.router.navigate(['/login']);
+  }
+
+}

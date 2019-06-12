@@ -12,10 +12,7 @@ module.exports.routes = {
     controller: 'login',
     action: "login",
   },
-  // 'get /login/login': {
-  //   controller: 'login',
-  //   action: "login",
-  // },
+
   'get /register/findall': {
     controller: 'register',
     action: "findall",
@@ -28,7 +25,7 @@ module.exports.routes = {
     controller: 'register',
     action: "delete",
   },
-  'get /register/update': {
+  'put /register/update': {
     controller: 'register',
     action: "update",
   },
@@ -57,52 +54,34 @@ module.exports.routes = {
     controller: 'category',
     action: "update",
   },
-  // 'get /public/images/*': {
-  //   controller: 'category',
-  //   action: "upload",
-  // },
-
-  'post /category/upload': {
-      controller: 'category',
-      action: "upload",
-    },
   //***********************************SERVICE******************************************** */
-
   'post /service/addservice': {
     controller: 'service',
     action: "addservice",
   },
   'get /service/service': {
     controller: 'service',
-    action: "service",
+    action: 'service',
   },
   'get /Service/getAllservice': {
     controller: 'service',
-    action: "getAllservice",
+    action: 'getAllservice',
   },
   'get /Service/getserviceById': {
     controller: 'service',
-    action: "getserviceById",
+    action: 'getserviceById',
   },
   'get /Service/subservice/:id': {
     controller: 'service',
-    action: "subservice",
+    action: 'subservice',
   },
-  'post /service/upload': {
-    controller: 'service',
-    action: "upload",
-  },
-  // 'delete /delete/Servicecategory': {
-  //   controller: 'servicecategory',
-  //   action: "delete",
-  // },
   'delete /Service/:id': {
     controller: 'service',
-    action: "delete",
+    action: 'delete',
   },
   'put  /Service/update/': {
     controller: 'service',
-    action: "update",
+    action: 'update',
   },
   //*************************************ORDERSERVISE********************************************** */
   'post /OrderService/PlaceOrder': {
@@ -113,26 +92,26 @@ module.exports.routes = {
     controller: 'OrderService',
     action: 'OrderList',
   },
-  'get /OrderService/:id': {
+  'get /OrderService/findbyid': {
     controller: 'OrderService',
-    action: "findById",
+    action: 'findById',
   },
   'post /OrderService/:id': {
     controller: 'OrderService',
-    action: "findById",
+    action: 'findById',
   },
-  'delete /OrderService/:id': {
+  'post /OrderService/address': {
     controller: 'OrderService',
-    action: "delete",
+    action: 'address',
   },
   'put  /OrderService/update/': {
     controller: 'OrderService',
-    action: "update",
+    action: 'update',
   },
   //*************************************BOOKINGSTATUS********************************************** */
   'get /Booking/BookingStatus': {
     controller:'Booking',
-    action: "BookingStatus",
+    action: 'BookingStatus',
   },
   //*************************************IMAGE********************************************** */
   'GET /img/categories' :{
@@ -141,4 +120,34 @@ module.exports.routes = {
    'GET /img/services' :{
      view: 'services'
     },
+  //*************************************IMAGE********************************************** */
+  'post /ForgotPassword/SendOTP': {
+    controller: 'ForgotPassword',
+    action: 'SendOTP',
+  },
+  'put /ForgotPassword/update': {
+    controller: 'ForgotPassword',
+    action: "update",
+  },
+  'post /ForgotPassword/VerifyOTP': {
+    controller: 'ForgotPassword',
+    action: 'VerifyOTP',
+  },
+  'post /ForgotPassword/ResendOTP': {
+    controller: 'ForgotPassword',
+    action: 'ResendOTP',
+  },
+  'post /SmsService/SendOTP': {
+    controller: 'SmsService',
+    action: 'SendOTP',
+  },
+  'post /SmsService/VerifyOTP': {
+    controller: 'SmsService',
+    action: 'VerifyOTP',
+  },
+  'post /SmsService/ResendOTP': {
+    controller: 'SmsService',
+    action: 'ResendOTP',
+  },
+
 };

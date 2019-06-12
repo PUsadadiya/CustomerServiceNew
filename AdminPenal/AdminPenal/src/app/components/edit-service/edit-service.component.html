@@ -7,13 +7,15 @@
         <label for="type">Type</label>
         <input type="text" class="form-control" formControlName="type" id="type">
         <label for="size">Size</label>
-        <input type="text" class="form-control" formControlName="size" id="size">
+        <input type="number" class="form-control" formControlName="size" id="size">
         <label for="service">Service</label>
         <input type="text" class="form-control" formControlName="service" id="service">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" formControlName="price" id="price">
       </div>
     </form>
     <div>
       <button class="btn btn-success" id="submit" type="submit" (click)="UpdateService()">Update</button>
     </div>
-  </div>
+</div>
 </div>

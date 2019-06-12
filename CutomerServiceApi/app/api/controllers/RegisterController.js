@@ -1,7 +1,6 @@
 // var bcrypt = require('bcrypt');
 
 module.exports = {
-
   create: function (req, res) {
     Register.create(req.body).then(function (err, newUser) {
       if (err) {
@@ -45,13 +44,12 @@ module.exports = {
   delete: function (req, res) {
     Register.destroy({
       id: req.param("id")
-    }).exec(function (err, _user) {
+    }).exec(function (error, _user) {
       if (_user && _user.length > 0) {
-        // console.log("Inside find Found .... _user = " + JSON.stringify(_user));
         res.ok("Record Removed!!!");
       } else {
         res.json({
-          err: err
+          error: error
         })
       }
     });
@@ -65,12 +63,12 @@ module.exports = {
       } else {
         Register.update({
           id: req.param("id")
-        }, {
+        }).set({
           firstname: req.param("firstname"),
           lastname: req.param("lastname"),
           email: req.param("email"),
           password: req.param("password"),
-          number: req.param("number")
+          mobile: req.param("mobile")
         }).exec(function (err, updatedUser) {
           if (err) {
             return res.negotiate(err);

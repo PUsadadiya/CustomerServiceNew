@@ -6,43 +6,73 @@
  */
 
 module.exports = {
+
   attributes: {
+
+    id: {
+      type: 'integer',
+      autoIncrement: true,
+      // primaryKey: true
+   },
     userid: {
-      type: 'number'
+      type: 'number',
+      required: true
     },
     categoryid: {
-      type: 'number'
+      type: 'number',
+      required: true
     },
     serviceid: {
-      type: 'number'
+      type: 'number',
+      required: true
+    },
+    addressid:{
+      type:'number',
+      required:true
+    },
+    category_name:{
+      type:'string',
+      required:true
+    },
+    service_name:{
+      type:'string',
+      required:true
     },
     username: {
-      type: 'string'
+      type: 'string',
+      required: true
     },
     email: {
-      type: 'string'
+      type: 'string',
+      required: true
     },
     mobile: {
-      type: 'number'
-    },
-    location: {
-      type: 'string'
+      type: 'number',
+      required: true
     },
     start_date: {
       type: 'string',
-      columnType: 'date'
+      columnType: 'date',
+      required: true
     },
     start_time: {
       type: 'string',
-      columnType: 'time'
+      columnType: 'time',
+      required: true
     },
     end_date: {
       type: 'string',
-      columnType: 'date'
+      columnType: 'date',
+      required: true
     },
-    OrderStatus:{
+    totalamount:{
+      type:'number',
+      required:true
+    },
+    orderstatus:{
        type:'number',
        defaultsTo:-1
     }
+
   }
 };

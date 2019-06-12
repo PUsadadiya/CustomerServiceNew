@@ -23,9 +23,11 @@ export class ListServiceComponent implements OnInit {
       cid: [],
       type: [],
       size: [],
-      service: []
+      service: [],
+      price: []
     });
-    this.endpointService.GetService(this.service.value.sid, this.service.value.type, this.service.value.size, this.service.value.service)
+    // tslint:disable-next-line:max-line-length
+    this.endpointService.GetService(this.service.value.sid, this.service.value.type, this.service.value.size, this.service.value.service,this.service.value.price,)
       .subscribe(data => {
         console.log(data);
         this.list = data;
@@ -33,29 +35,22 @@ export class ListServiceComponent implements OnInit {
   }
   AddService(): void {
     this.router.navigate(['addservice']);
-    console.log('success');
   }
   deleteService(id: ServiceInfo): void {
     this.endpointService.deleteService(id)
       .subscribe(data => {
         this.getdata();
       });
-
   }
   editService(id: ServiceInfo): void {
-    console.log(id);
     this.endpointService.getServiceById(id)
       .subscribe(data => {
-        console.log(data);
         const navigationExtras: NavigationExtras = {
           queryParams: {
-            "service": JSON.stringify(data)
+            'service': JSON.stringify(data)
           }
         };
-        console.log(navigationExtras);
         this.router.navigate(['edit-service'], navigationExtras);
-        // this.editservices.setValue(data);
       });
-
   }
 }

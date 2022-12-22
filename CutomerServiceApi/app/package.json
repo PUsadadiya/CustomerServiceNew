@@ -14,7 +14,7 @@
     "bluebird": "^3.5.3",
     "gm": "^1.23.1",
     "grunt": "^1.0.3",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
